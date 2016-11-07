@@ -52,7 +52,7 @@ bool MenuScene::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 			auto gotoPlayScene = PlayScene::createScene();
-			Director::getInstance()->replaceScene(TransitionFade::create(3, gotoPlayScene));
+			Director::getInstance()->replaceScene(TransitionFade::create(1, gotoPlayScene));
 			break;
 		}
 	});

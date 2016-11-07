@@ -19,11 +19,14 @@ bool OverLayer::init()
 	//Background gameover
 	auto overPanel = Sprite::create("gameover.jpg");
 	overPanel->setPosition(Point(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
-
 	this->addChild(overPanel);
+
+	scoreLabel = LabelTTF::create("0", "fonts/Minecrafter.ttf", 120);
+	scoreLabel->setPosition(origin.x + visibleSize.width / 2, overPanel->getPositionY());
+	this->addChild(scoreLabel);
 	//Button
 	auto menu = Button::create("menu.png");
-	menu->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
+	menu->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2 +100));
 
 	menu->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 	{
@@ -39,7 +42,7 @@ bool OverLayer::init()
 	});
 	this->addChild(menu);
 	auto replay = Button::create("replay.png");
-	replay->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
+	replay->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2 -100));
 
 	replay->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 	{

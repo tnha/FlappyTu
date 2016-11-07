@@ -22,7 +22,7 @@ Scene* IntroScene::createScene()
 void IntroScene::gotoMenuScene(float dt)
 {
 	 auto menuscene = MenuScene::createScene();
-	 Director::getInstance()->replaceScene(TransitionFade::create(3, menuscene));
+	 Director::getInstance()->replaceScene(TransitionFade::create(1, menuscene));
 }
 
 bool IntroScene::init()
@@ -38,6 +38,6 @@ bool IntroScene::init()
 	auto introBackground = Sprite::create("logo.png");
 	introBackground->setPosition(Point(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
 	this->addChild(introBackground);
-	this->scheduleOnce(schedule_selector(IntroScene::gotoMenuScene), 4.0f);
+	this->scheduleOnce(schedule_selector(IntroScene::gotoMenuScene), 1);
     return true;
 }
