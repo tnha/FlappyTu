@@ -48,7 +48,6 @@ bool PlayScene::init()
 
 	//Player
 	pixel = new Pixel(this);
-
 	//Event Listener
 	auto mouseListener = EventListenerMouse::create();
 	mouseListener->onMouseDown = CC_CALLBACK_1(PlayScene::onMouseDown, this);
@@ -107,7 +106,7 @@ void PlayScene::update(float dt)
 		auto overlayer = OverLayer::create();
 		overlayer->setScore(score);
 
-		overlayer->setPosition(origin.x, origin.y+2000);
+		overlayer->setPosition(origin.x, origin.y);
 		this->addChild(overlayer, 110);
 	}
 

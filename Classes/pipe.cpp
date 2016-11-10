@@ -30,7 +30,6 @@ Pipe::Pipe(Layer* layer)
 	layer->addChild(topTexture);
 
 	//Score Line
-	//Là đối tượng để mình tính điểm nếu Pixel đi qua nó
 	auto scoreline = Node::create();
 	scoreline->setPosition(Point(bottomTexture->getContentSize().width, bottomTexture->getContentSize().height + 110));
 	auto linebody = PhysicsBody::createBox(Size(1, 300), PhysicsMaterial(0, 0, 0));

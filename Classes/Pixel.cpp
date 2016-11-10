@@ -2,7 +2,6 @@
 
 Pixel::Pixel(Layer* layer)
 {
-	//Mình sẽ lấy các giá trị của màn hình
 	origin = Director::getInstance()->getVisibleOrigin();
 	visibleSize = Director::getInstance()->getVisibleSize();
 
@@ -11,7 +10,7 @@ Pixel::Pixel(Layer* layer)
 	flappyBird->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
 	flappyBody = PhysicsBody::createBox(flappyBird->getContentSize());
 	flappyBody->setCategoryBitmask(eObjectBitmask::PIXEL);
-	//flappyBody->setCollisionBitmask(eObjectBitmask::PIPE);
+	flappyBody->setCollisionBitmask(eObjectBitmask::PIPE);
 	flappyBody->setContactTestBitmask(eObjectBitmask::PIPE | eObjectBitmask::LINE);
 	flappyBird->setPhysicsBody(flappyBody);
 	layer->addChild(flappyBird, 100);
@@ -34,17 +33,14 @@ void Pixel::update()
 		if (flappyBird->getPositionY() > flappyBird->getContentSize().height/2)
 		{
 			velocityY += -1;
-			rotation += 3;
+			rotation += 1;
 		}
 		else
 		{
 			//Nó sẽ không rơi nữa, không xoay luôn
 			velocityY = 0;
 			rotation = 0;
-
-			//Cho pixel nằm ở dưới đáy
-			flappyBird->setPositionY(flappyBird->getContentSize().height / 2);
-
+			isDead = true;
 		}
 	}
 	else
@@ -54,8 +50,8 @@ void Pixel::update()
 		{
 			//Pixel đang bay lên
 			//Thì mới tăng bay lên (tăng Y)
-			velocityY = 10;
-			rotation += -10;
+			velocityY = 8;
+			rotation += 0;
 		}
 		//Nếu nó đụng trần bên trên
 		else

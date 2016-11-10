@@ -1,62 +1,58 @@
 ﻿#include "OverLayer.h"
-#include "ui/CocosGUI.h"
-using namespace ui;
-USING_NS_CC;
+
 void OverLayer::setScore(int _score)
 {
 	score = _score;
 	scoreLabel->setString(String::createWithFormat("%d", score)->getCString());
 }
 
+// on "init" you need to initialize your instance
 bool OverLayer::init()
 {
+	//////////////////////////////
+	// 1. super init first
 	if (!Layer::init())
 	{
 		return false;
 	}
+
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-	//Background gameover
-	auto overPanel = Sprite::create("PlayBackground.png");
+
+	/////////////////////////////
+	auto overPanel = Sprite::create("Playbackground.png");
 	overPanel->setPosition(Point(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
+
 	this->addChild(overPanel);
 
+	//Score
 	scoreLabel = LabelTTF::create("0", "fonts/Minecrafter.ttf", 120);
 	scoreLabel->setPosition(origin.x + visibleSize.width / 2, overPanel->getPositionY());
+
 	this->addChild(scoreLabel);
+
 	//Button
-	auto menu = Button::create("menu.png");
-	menu->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2 +100));
+	auto menuBtn = MenuItemImage::create("menu.png", "menu.png", CC_CALLBACK_0(OverLayer::gotoMenuScene, this));
+	auto replayBtn = MenuItemImage::create("replay.png", "replay.png", CC_CALLBACK_0(OverLayer::gotoPlayScene, this));
 
-	menu->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
-	{
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-			break;
-		case ui::Widget::TouchEventType::ENDED:
-			auto gotoMenuScene = MenuScene::createScene();
-			Director::getInstance()->replaceScene(TransitionFade::create(3, gotoMenuScene));
-			break;
-		}
-	});
+	auto menu = Menu::create(menuBtn, replayBtn, nullptr);
+	menu->alignItemsHorizontallyWithPadding(5);
+
+	menu->setPosition(origin.x + visibleSize.width / 2, overPanel->getPositionY() - 100);
+
 	this->addChild(menu);
-	auto replay = Button::create("replay.png");
-	replay->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2 -100));
-
-	replay->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
-	{
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-			break;
-		case ui::Widget::TouchEventType::ENDED:
-			auto gotoPlayScene = PlayScene::createScene();
-			Director::getInstance()->replaceScene(TransitionFade::create(3, gotoPlayScene));
-			break;
-		}
-	});
-	this->addChild(replay);
 
 	return true;
+}
+
+void OverLayer::gotoMenuScene()
+{
+	auto menuscene = MenuScene::createScene();
+	Director::getInstance()->replaceScene(TransitionMoveInT::create(0.25f, menuscene));
+}
+
+void OverLayer::gotoPlayScene()
+{
+	auto playscene = PlayScene::createScene();
+	Director::getInstance()->replaceScene(playscene);
 }
