@@ -27,13 +27,13 @@
     <ClCompile Include="..\Classes\PlayScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Pixel.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\pipe.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\OverLayer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pixel.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,9 +53,6 @@
     <ClInclude Include="..\Classes\PlayScene.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Pixel.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\definitions.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -63,6 +60,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\OverLayer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pixel.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

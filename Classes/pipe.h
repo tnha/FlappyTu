@@ -15,11 +15,12 @@ public:
 
 private:
 	Sprite* topTexture, *bottomTexture;
+	PhysicsBody *topBody, *bottomBody;
 
 	Size visibleSize;
 	Vec2 origin;
 
-	float velocity;
+	float velocityX;
 	float endPositionX;
 
 };

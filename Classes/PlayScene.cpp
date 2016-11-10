@@ -4,7 +4,7 @@ Scene* PlayScene::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
 	// 'layer' is an autorelease object
@@ -46,6 +46,7 @@ bool PlayScene::init()
 	this->addChild(edgeBox);*/
 
 
+	//Player
 	pixel = new Pixel(this);
 
 	//Event Listener
@@ -54,6 +55,7 @@ bool PlayScene::init()
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
+	//Contact listener
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(PlayScene::onContactBegin, this);
 
@@ -89,7 +91,7 @@ void PlayScene::update(float dt)
 		}
 	}
 
-	pixel->update(dt);
+	pixel->update();
 
 	if (isDead || pixel->isDead)
 	{
@@ -105,8 +107,8 @@ void PlayScene::update(float dt)
 		auto overlayer = OverLayer::create();
 		overlayer->setScore(score);
 
-		overlayer->setPosition(origin.x, origin.y);
-		this->addChild(overlayer, 1);
+		overlayer->setPosition(origin.x, origin.y+2000);
+		this->addChild(overlayer, 110);
 	}
 
 }

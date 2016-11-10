@@ -11,13 +11,13 @@ class Pixel
 public:
 	Pixel(Layer* layer);
 	void Flap();
-	void update(float dt);
+	void update();
 	void Fall();
 	bool isDead;
 
 private:
-	Sprite* FlappyBird;
-	PhysicsBody* FlappyBody;
+	Sprite* flappyBird;
+	PhysicsBody* flappyBody;
 
 	Size visibleSize;
 	Vec2 origin;

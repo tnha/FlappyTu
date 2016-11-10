@@ -2,18 +2,19 @@
 
 Pixel::Pixel(Layer* layer)
 {
+	//Mình sẽ lấy các giá trị của màn hình
 	origin = Director::getInstance()->getVisibleOrigin();
 	visibleSize = Director::getInstance()->getVisibleSize();
-//-------------------------------------------------------------------
-	FlappyBird = Sprite::create("play.png");
-	FlappyBird->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	auto birdPhysic = PhysicsBody::createBox(FlappyBird->getContentSize());
-	FlappyBody = PhysicsBody::createBox(FlappyBird->getContentSize(), PhysicsMaterial(0, 0, 0));
-	FlappyBody->setCollisionBitmask(4);
-	FlappyBody->setContactTestBitmask(true);
-	FlappyBird->setPhysicsBody(FlappyBody);
-	layer->addChild(FlappyBird);
 
+	//Tạo sprite cho Pixel, và set vị trí cho nó
+	flappyBird = Sprite::create("bird.png");
+	flappyBird->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
+	flappyBody = PhysicsBody::createBox(flappyBird->getContentSize());
+	flappyBody->setCategoryBitmask(eObjectBitmask::PIXEL);
+	//flappyBody->setCollisionBitmask(eObjectBitmask::PIPE);
+	flappyBody->setContactTestBitmask(eObjectBitmask::PIPE | eObjectBitmask::LINE);
+	flappyBird->setPhysicsBody(flappyBody);
+	layer->addChild(flappyBird, 100);
 
 	//Các giá trị mặc định cho các biến
 	isFalling = true;
@@ -24,20 +25,17 @@ Pixel::Pixel(Layer* layer)
 	isDead = false;
 }
 
-void Pixel::update(float dt)
+void Pixel::update()
 {
 	//Nếu mà nó đang rơi
 	if (isFalling)
 	{
 		//Mà nó ở vị trí bên trên cạnh phía dưới
-		if (FlappyBird->getPositionY() > FlappyBird->getContentSize().height / 2)
+		if (flappyBird->getPositionY() > flappyBird->getContentSize().height/2)
 		{
-			//Pixel đang rơi
-			//Thì sẽ cộng thêm -1 (trừ đi 1) cho Y, tốc độ rơi ngày càng nhanh, và xoay cộng thêm 3
 			velocityY += -1;
 			rotation += 3;
 		}
-		//Nếu không
 		else
 		{
 			//Nó sẽ không rơi nữa, không xoay luôn
@@ -45,17 +43,14 @@ void Pixel::update(float dt)
 			rotation = 0;
 
 			//Cho pixel nằm ở dưới đáy
-			FlappyBird->setPositionY(FlappyBird->getContentSize().height / 2);
+			flappyBird->setPositionY(flappyBird->getContentSize().height / 2);
 
-			//Và ta sẽ chết
-			isDead = true;
 		}
 	}
-	//Nếu mà nó không có rơi
 	else
 	{
 		//Mà nó ở dưới cái trần bên trên
-		if (FlappyBird->getPositionY() < visibleSize.height - FlappyBird->getContentSize().height / 2)
+		if (flappyBird->getPositionY() < visibleSize.height - flappyBird->getContentSize().height / 2)
 		{
 			//Pixel đang bay lên
 			//Thì mới tăng bay lên (tăng Y)
@@ -71,9 +66,9 @@ void Pixel::update(float dt)
 		}
 	}
 
-	//Cuối cùng ta set vị trí và góc xoay cho Sprite thôi :D
-	FlappyBird->setPosition(Point(FlappyBird->getPositionX(), FlappyBird->getPositionY() + velocityY));
-	FlappyBird->setRotation(rotation);
+	
+	flappyBird->setPosition(Point(flappyBird->getPositionX(), flappyBird->getPositionY() + velocityY));
+	flappyBird->setRotation(rotation);
 }
 
 void Pixel::Flap()

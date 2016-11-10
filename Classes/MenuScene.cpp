@@ -18,11 +18,6 @@ Scene* MenuScene::createScene()
     // return the scene
     return scene;
 }
-void MenuScene::gotoPlayScene(float dt)
-{
-	auto playscene = PlayScene::createScene();
-	Director::getInstance()->replaceScene(playscene);
-}
 bool MenuScene::init()
 {
     if ( !Layer::init() )

@@ -17,7 +17,7 @@ bool OverLayer::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	//Background gameover
-	auto overPanel = Sprite::create("gameover.jpg");
+	auto overPanel = Sprite::create("PlayBackground.png");
 	overPanel->setPosition(Point(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
 	this->addChild(overPanel);
 

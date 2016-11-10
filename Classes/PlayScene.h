@@ -39,6 +39,7 @@ private:
 	std::list<Pipe*> listPipes;
 
 	bool isDead;
+
 	LabelTTF* scoreLabel;
 	int score;
 };
